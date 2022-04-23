@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/login-page-contact-list/static/css/main.b5a7aec5.css",
+    "main.js": "/login-page-contact-list/static/js/main.d0230905.js",
+    "index.html": "/login-page-contact-list/index.html",
+    "main.b5a7aec5.css.map": "/login-page-contact-list/static/css/main.b5a7aec5.css.map",
+    "main.d0230905.js.map": "/login-page-contact-list/static/js/main.d0230905.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b5a7aec5.css",
+    "static/js/main.d0230905.js"
+  ]
+}
