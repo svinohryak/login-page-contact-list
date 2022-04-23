@@ -1,32 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUserContact, IUserContactState } from "../../types/types";
 import { fetchUserContacts } from "./actionCreators";
-
-export interface IName {
-  first: string;
-  last: string;
-}
-
-export interface IPicture {
-  medium: string;
-  thumbnail: string;
-}
-
-export interface ILogin {
-  uuid: string;
-}
-
-export interface IUserContact {
-  name: IName;
-  email: string;
-  picture: IPicture;
-  login: ILogin;
-}
-
-export interface IUserContactState {
-  userContacts: IUserContact[];
-  isLoading: boolean;
-  error: string;
-}
 
 const initialState: IUserContactState = {
   userContacts: [],
@@ -37,7 +11,16 @@ const initialState: IUserContactState = {
 export const userContactsSlice = createSlice({
   name: "userContacts",
   initialState,
-  reducers: {},
+  reducers: {
+    removeContact(state, action: PayloadAction<string>) {
+      return {
+        ...state,
+        userContacts: state.userContacts.filter((contact) => {
+          return contact.login.uuid !== action.payload;
+        }),
+      };
+    },
+  },
   extraReducers: {
     [fetchUserContacts.fulfilled.type]: (
       state,

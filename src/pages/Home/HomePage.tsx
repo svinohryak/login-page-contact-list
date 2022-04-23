@@ -1,56 +1,44 @@
-import { FC, useEffect, useState } from "react";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { FC } from "react";
 import { Navigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../hooks/redux";
-import { userSlice } from "../../store/reucers/userSlice";
-import { fetchUserContacts } from "../../store/reucers/actionCreators";
+import useHomePage from "./useHomePage";
+import List from "../../components/List/List";
+import Filter from "../../components/Filter/Filter";
+import Modal from "../../components/Modal/Modal";
 // import styled from "styled-components";
 
 const HomePage: FC = () => {
-  const { isSignIn } = useAppSelector((state) => state.userReducer);
-  const dispatch = useAppDispatch();
-  const { signOutUser } = userSlice.actions;
-
-  const { userContacts, error, isLoading } = useAppSelector(
-    (state) => state.userContactsReducer
-  );
-
-  useEffect(() => {
-    dispatch(fetchUserContacts());
-  }, []);
-
-  console.log(userContacts);
-
-  const [userEmail, setUserEmail] = useState<string | null>("");
-
-  const auth = getAuth();
-
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        dispatch(signOutUser());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserEmail(user?.email);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+  const {
+    isLoading,
+    isSignIn,
+    userEmail,
+    filterString,
+    filterUserContacts,
+    isModalOpen,
+    targetUser,
+    handleSignOut,
+    handleRemoveContact,
+    handleFilterChange,
+    handleClose,
+    handleSelectUserContact,
+  } = useHomePage();
 
   return isSignIn ? (
     <>
-      <h2>Welcome {userEmail}</h2>
+      <p>
+        <strong>{userEmail}</strong> contacts
+      </p>
       <button onClick={handleSignOut}>Log out</button>
+      <Filter value={filterString} onChange={handleFilterChange} />
+      <List
+        userContacts={filterUserContacts}
+        onRemove={handleRemoveContact}
+        isLoading={isLoading}
+        onSelectUserContact={handleSelectUserContact}
+      />
+      {isModalOpen && <Modal onClose={handleClose} targetUser={targetUser} />}
     </>
   ) : (
-    <Navigate to="/login" />
+    <Navigate to="/login-page-contact-list/login" />
   );
 };
 

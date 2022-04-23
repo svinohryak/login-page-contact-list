@@ -64,8 +64,8 @@ const RegisterPage: FC = () => {
       <div> {passwordMessage}</div>
       <p>
         Already have an account?{" "}
-        <NavLink to="/login" replace>
-          Log In
+        <NavLink to="/login-page-contact-list/login" replace>
+          Login
         </NavLink>{" "}
       </p>
     </>

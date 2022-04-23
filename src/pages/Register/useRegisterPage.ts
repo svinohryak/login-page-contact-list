@@ -76,7 +76,7 @@ const useRegisterPage = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
           dispatch(signInUser());
-          history("/");
+          history("/login-page-contact-list");
         })
         .catch((error) => {
           error.message.includes("email-already-in-use")

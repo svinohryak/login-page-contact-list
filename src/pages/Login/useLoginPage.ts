@@ -22,13 +22,11 @@ const useLoginPage = () => {
       .then((userCredential) => {
         // const user = userCredential.user;
         dispatch(signInUser());
-        history("/");
+        history("/login-page-contact-list/");
       })
       .catch((error) => {
         setError("invalid password or email");
       });
-    // setEmail("");
-    // setPassword("");
   };
 
   return {

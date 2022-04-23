@@ -32,8 +32,8 @@ const LoginPage: FC = () => {
 
       <p>
         Don't have an account yet?{" "}
-        <NavLink to="/register" replace>
-          rigester
+        <NavLink to="/login-page-contact-list/register" replace>
+          Register
         </NavLink>{" "}
       </p>
     </>
