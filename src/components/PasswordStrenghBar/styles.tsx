@@ -21,10 +21,13 @@ interface IBar {
 }
 
 export const Wrapper = styled.div`
-  width: 100%;
+  width: 96%;
   height: 5px;
   background-color: lightgray;
   position: relative;
+  margin: 1px auto;
+  border-radius: 5px;
+  overflow: hidden;
 `;
 
 export const Bar = styled.div<IBar>`

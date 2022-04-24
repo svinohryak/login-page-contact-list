@@ -38,13 +38,13 @@ const useRegisterPage = () => {
     if (EmailValidator.validate(mail)) {
       setEmailStatus({
         ...emailStatus,
-        message: "Valid Email",
+        message: "",
         isValid: true,
       });
     } else {
       setEmailStatus({
         ...emailStatus,
-        message: "Enter valid Email",
+        message: "Email is invalid",
         isValid: false,
       });
     }

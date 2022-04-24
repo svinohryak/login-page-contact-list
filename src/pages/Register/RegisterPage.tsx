@@ -2,6 +2,7 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import useRegisterPage from "./useRegisterPage";
 import PasswordStrenghBar from "../../components/PasswordStrenghBar/PasswordStrenghBar";
+import * as CommonStyled from "../../common styles/styles";
 
 const RegisterPage: FC = () => {
   const {
@@ -20,11 +21,13 @@ const RegisterPage: FC = () => {
   } = useRegisterPage();
 
   return (
-    <>
-      <h2>Register</h2>
+    <CommonStyled.Form>
+      <h1>Register</h1>
       <div>{error}</div>
       <form onSubmit={register} name="registration_form">
+        <label htmlFor="email">Email address</label>
         <input
+          id="email"
           type="email"
           value={email}
           placeholder="Enter your email"
@@ -32,23 +35,26 @@ const RegisterPage: FC = () => {
           required
           onChange={(e) => validateEmail(e)}
         />
+        <div>{emailStatus.message}</div>
 
-        <div style={{ width: "175px" }}>
-          <input
-            type="password"
-            value={password}
-            required
-            placeholder="Enter your password"
-            onChange={(e) => validatePassword(e)}
-          />
-
-          <PasswordStrenghBar
-            strengthLevel={passwordMessage}
-            passwordStatus={passwordStatus}
-          />
-        </div>
-
+        <label htmlFor="password">Password</label>
         <input
+          id="password"
+          type="password"
+          value={password}
+          required
+          placeholder="Enter your password"
+          onChange={(e) => validatePassword(e)}
+        />
+
+        <PasswordStrenghBar
+          strengthLevel={passwordMessage}
+          passwordStatus={passwordStatus}
+        />
+        <div> {passwordMessage}</div>
+        <label htmlFor="confirm password">Confirm password</label>
+        <input
+          id="confirm password"
           type="password"
           value={confirmPassword}
           required
@@ -60,15 +66,14 @@ const RegisterPage: FC = () => {
           Register
         </button>
       </form>
-      <div>{emailStatus.message}</div>
-      <div> {passwordMessage}</div>
+
       <p>
         Already have an account?{" "}
         <NavLink to="/login-page-contact-list/login" replace>
           Login
         </NavLink>{" "}
       </p>
-    </>
+    </CommonStyled.Form>
   );
 };
 
