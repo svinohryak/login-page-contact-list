@@ -1,23 +1,27 @@
 import { FC } from "react";
 import { IUserContact } from "../../types/types";
 import Spiner from "../Spiner/Spiner";
-// import * as Styled from "./styles";
-
 interface IListProps {
   userContacts: IUserContact[];
   onRemove: (contact: string) => void;
   isLoading: boolean;
+  error: string;
   onSelectUserContact: (userContact: IUserContact) => void;
 }
 
 const List: FC<IListProps> = ({
   userContacts,
   isLoading,
+  error,
   onRemove,
   onSelectUserContact,
 }) => {
   if (isLoading) {
     return <Spiner />;
+  }
+
+  if (error) {
+    return <h2>{error}</h2>;
   }
 
   return (

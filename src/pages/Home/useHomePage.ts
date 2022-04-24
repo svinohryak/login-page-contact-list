@@ -4,8 +4,7 @@ import { getAuth, onAuthStateChanged, signOut } from "@firebase/auth";
 import { userSlice } from "../../store/reucers/userSlice";
 import { fetchUserContacts } from "../../store/reucers/actionCreators";
 import { userContactsSlice } from "../../store/reucers/userContactsSlice";
-import { IUserContact } from "../../types/types";
-// import userContactsSlice from "../../store/reucers/userContactsSlice";
+import { IChangedContactData, IName, IUserContact } from "../../types/types";
 
 const useHomePage = () => {
   const auth = getAuth();
@@ -17,8 +16,11 @@ const useHomePage = () => {
   const [userEmail, setUserEmail] = useState<string | null>("");
   const [filterString, setFilterString] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [targetUser, setTargetUser] = useState();
-  const [targetUser, setTargetUser] = useState<IUserContact>();
+  const [targetUserId, setTargetUserId] = useState("");
+  const [targetUserName, setTargetUserName] = useState<IName>({
+    first: "",
+    last: "",
+  });
 
   const { userContacts, error, isLoading } = useAppSelector(
     (state) => state.userContactsReducer
@@ -69,11 +71,23 @@ const useHomePage = () => {
 
   const handleSelectUserContact = (contact: IUserContact) => {
     setIsModalOpen(true);
+
     const targetUserId = contact?.login?.uuid;
     const targetUser = userContacts.find(
       (contact) => contact?.login?.uuid === targetUserId
     );
-    targetUser && setTargetUser(targetUser);
+
+    setTargetUserId(targetUserId);
+
+    if (targetUser) {
+      setTargetUserName((prev) => {
+        return {
+          ...prev,
+          first: targetUser?.name?.first,
+          last: targetUser?.name?.last,
+        };
+      });
+    }
   };
 
   const handleChangeTemplate = (
@@ -86,26 +100,26 @@ const useHomePage = () => {
   const handleSubmit = (name: string[]) => {
     setIsModalOpen(false);
 
-    const newUser = {
-      ...targetUser,
+    const changedContactData: IChangedContactData = {
+      uuid: targetUserId,
       name: {
-        ...targetUser?.name,
         first: name[0],
         last: name[1],
       },
     };
 
-    dispatch(updateUserContact(newUser));
+    dispatch(updateUserContact(changedContactData));
   };
 
   return {
+    error,
     isLoading,
     isSignIn,
     userEmail,
     filterString,
     filterUserContacts,
     isModalOpen,
-    targetUser,
+    targetUserName,
     handleSignOut,
     handleRemoveContact,
     handleFilterChange,

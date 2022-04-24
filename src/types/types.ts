@@ -24,3 +24,8 @@ export interface IUserContactState {
   isLoading: boolean;
   error: string;
 }
+
+export interface IChangedContactData {
+  uuid: string;
+  name: IName;
+}

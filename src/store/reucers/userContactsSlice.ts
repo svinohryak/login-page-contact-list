@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUserContact, IUserContactState } from "../../types/types";
+import {
+  IChangedContactData,
+  IUserContact,
+  IUserContactState,
+} from "../../types/types";
 import { fetchUserContacts } from "./actionCreators";
 
 const initialState: IUserContactState = {
@@ -20,12 +24,16 @@ export const userContactsSlice = createSlice({
         }),
       };
     },
-    updateUserContact(state, action) {
+    updateUserContact(state, action: PayloadAction<IChangedContactData>) {
       return {
         ...state,
         userContacts: [...state.userContacts].map((contact) => {
-          if (contact.login.uuid === action.payload.login.uuid)
-            return action.payload;
+          if (contact.login.uuid === action.payload.uuid) {
+            return {
+              ...contact,
+              name: action.payload.name,
+            };
+          }
           return contact;
         }),
       };

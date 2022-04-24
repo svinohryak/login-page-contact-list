@@ -1,6 +1,6 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import ReactDom from "react-dom";
-import { IUserContact } from "../../types/types";
+import { IName } from "../../types/types";
 import * as Styled from "./styles";
 
 const modalElement = document.getElementById("modal") as Element;
@@ -12,26 +12,18 @@ interface IModalProps {
     state: (value: string) => void
   ) => void;
   onSubmit: (name: string[]) => void;
-  targetUser: any;
-  // targetUser: IUserContact;
+  targetUserName: IName;
 }
 
 const Modal: FC<IModalProps> = ({
   onClose,
   onSubmit,
-  targetUser,
+  targetUserName,
   onChangeInput,
 }) => {
   const modalRef = useRef(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-
-  useEffect(() => {
-    const firstName = targetUser?.name?.first;
-    const lastName = targetUser?.name?.last;
-    setFirstName(firstName);
-    setLastName(lastName);
-  }, [targetUser]);
+  const [firstName, setFirstName] = useState(targetUserName.first);
+  const [lastName, setLastName] = useState(targetUserName.last);
 
   const outsideClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();

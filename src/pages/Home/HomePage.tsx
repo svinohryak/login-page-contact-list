@@ -4,17 +4,17 @@ import useHomePage from "./useHomePage";
 import List from "../../components/List/List";
 import Filter from "../../components/Filter/Filter";
 import Modal from "../../components/Modal/Modal";
-// import styled from "styled-components";
 
 const HomePage: FC = () => {
   const {
+    error,
     isLoading,
     isSignIn,
     userEmail,
     filterString,
     filterUserContacts,
     isModalOpen,
-    targetUser,
+    targetUserName,
     handleSignOut,
     handleRemoveContact,
     handleFilterChange,
@@ -35,11 +35,12 @@ const HomePage: FC = () => {
         userContacts={filterUserContacts}
         onRemove={handleRemoveContact}
         isLoading={isLoading}
+        error={error}
         onSelectUserContact={handleSelectUserContact}
       />
       {isModalOpen && (
         <Modal
-          targetUser={targetUser}
+          targetUserName={targetUserName}
           onClose={handleClose}
           onSubmit={handleSubmit}
           onChangeInput={handleChangeTemplate}
