@@ -20,6 +20,8 @@ const HomePage: FC = () => {
     handleFilterChange,
     handleClose,
     handleSelectUserContact,
+    handleChangeTemplate,
+    handleSubmit,
   } = useHomePage();
 
   return isSignIn ? (
@@ -35,7 +37,14 @@ const HomePage: FC = () => {
         isLoading={isLoading}
         onSelectUserContact={handleSelectUserContact}
       />
-      {isModalOpen && <Modal onClose={handleClose} targetUser={targetUser} />}
+      {isModalOpen && (
+        <Modal
+          targetUser={targetUser}
+          onClose={handleClose}
+          onSubmit={handleSubmit}
+          onChangeInput={handleChangeTemplate}
+        />
+      )}
     </>
   ) : (
     <Navigate to="/login-page-contact-list/login" />

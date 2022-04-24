@@ -20,6 +20,16 @@ export const userContactsSlice = createSlice({
         }),
       };
     },
+    updateUserContact(state, action) {
+      return {
+        ...state,
+        userContacts: [...state.userContacts].map((contact) => {
+          if (contact.login.uuid === action.payload.login.uuid)
+            return action.payload;
+          return contact;
+        }),
+      };
+    },
   },
   extraReducers: {
     [fetchUserContacts.fulfilled.type]: (

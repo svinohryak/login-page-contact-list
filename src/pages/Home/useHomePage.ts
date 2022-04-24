@@ -12,11 +12,12 @@ const useHomePage = () => {
   const dispatch = useAppDispatch();
   const { isSignIn } = useAppSelector((state) => state.userReducer);
   const { signOutUser } = userSlice.actions;
-  const { removeContact } = userContactsSlice.actions;
+  const { removeContact, updateUserContact } = userContactsSlice.actions;
 
   const [userEmail, setUserEmail] = useState<string | null>("");
   const [filterString, setFilterString] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [targetUser, setTargetUser] = useState();
   const [targetUser, setTargetUser] = useState<IUserContact>();
 
   const { userContacts, error, isLoading } = useAppSelector(
@@ -34,15 +35,6 @@ const useHomePage = () => {
         user.name.last.toLowerCase().includes(filterString)
     );
   }, [userContacts, filterString]);
-
-  const handleSelectUserContact = (contact: IUserContact) => {
-    setIsModalOpen(true);
-    const targetUserId = contact.login.uuid;
-    const targetUser = userContacts.find(
-      (contact: IUserContact) => contact.login.uuid === targetUserId
-    );
-    setTargetUser(targetUser);
-  };
 
   const handleSignOut = () => {
     signOut(auth)
@@ -64,7 +56,6 @@ const useHomePage = () => {
   }, []);
 
   const handleRemoveContact = (contactId: string) => {
-    console.log(contactId);
     dispatch(removeContact(contactId));
   };
 
@@ -73,7 +64,38 @@ const useHomePage = () => {
   };
 
   const handleClose = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsModalOpen(false);
+  };
+
+  const handleSelectUserContact = (contact: IUserContact) => {
+    setIsModalOpen(true);
+    const targetUserId = contact?.login?.uuid;
+    const targetUser = userContacts.find(
+      (contact) => contact?.login?.uuid === targetUserId
+    );
+    targetUser && setTargetUser(targetUser);
+  };
+
+  const handleChangeTemplate = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    state: (value: string) => void
+  ) => {
+    state(event.target.value);
+  };
+
+  const handleSubmit = (name: string[]) => {
+    setIsModalOpen(false);
+
+    const newUser = {
+      ...targetUser,
+      name: {
+        ...targetUser?.name,
+        first: name[0],
+        last: name[1],
+      },
+    };
+
+    dispatch(updateUserContact(newUser));
   };
 
   return {
@@ -89,6 +111,8 @@ const useHomePage = () => {
     handleFilterChange,
     handleClose,
     handleSelectUserContact,
+    handleChangeTemplate,
+    handleSubmit,
   };
 };
 

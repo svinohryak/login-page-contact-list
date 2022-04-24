@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { IUserContact } from "../../types/types";
 import * as Styled from "./styles";
@@ -7,18 +7,31 @@ const modalElement = document.getElementById("modal") as Element;
 
 interface IModalProps {
   onClose: () => void;
-  //   onChangeInput: (
-  //     event: React.ChangeEvent<HTMLInputElement>,
-  //     state: (value: string) => void
-  //   ) => void;
-  //   onSubmit: (name: string[]) => void;
-  targetUser: IUserContact;
+  onChangeInput: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    state: (value: string) => void
+  ) => void;
+  onSubmit: (name: string[]) => void;
+  targetUser: any;
+  // targetUser: IUserContact;
 }
 
-const Modal: FC<IModalProps> = ({ onClose, targetUser }) => {
+const Modal: FC<IModalProps> = ({
+  onClose,
+  onSubmit,
+  targetUser,
+  onChangeInput,
+}) => {
   const modalRef = useRef(null);
-  const [firstName, setFirstName] = useState(targetUser.name.first);
-  const [lastName, setLastName] = useState(targetUser.name.last);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  useEffect(() => {
+    const firstName = targetUser?.name?.first;
+    const lastName = targetUser?.name?.last;
+    setFirstName(firstName);
+    setLastName(lastName);
+  }, [targetUser]);
 
   const outsideClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -29,12 +42,10 @@ const Modal: FC<IModalProps> = ({ onClose, targetUser }) => {
 
   return modalElement
     ? ReactDom.createPortal(
-        <Styled.ModalLayout ref={modalRef}>
+        <Styled.ModalLayout ref={modalRef} onClick={outsideClose}>
           <Styled.ModalBox>
             <h3>Change name</h3>
-            <Styled.CloseButton onClick={() => outsideClose}>
-              ❌
-            </Styled.CloseButton>
+            <Styled.CloseButton onClick={onClose}>❌</Styled.CloseButton>
             <form>
               <div>
                 <label>First name</label>

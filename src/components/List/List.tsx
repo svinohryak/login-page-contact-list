@@ -31,14 +31,6 @@ const List: FC<IListProps> = ({
             {contact.name.first} {contact.name.last} <br /> {contact.email}{" "}
             <br />
             <button onClick={() => onRemove(contact.login.uuid)}>Delete</button>
-            {/* <button onClick={() => {}}>Delete</button> */}
-            <button
-              onClick={() => {
-                console.log(contact.login.uuid);
-              }}
-            >
-              Change
-            </button>
             <button onClick={() => onSelectUserContact(contact)}>Change</button>
           </div>
         </div>
