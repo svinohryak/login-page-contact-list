@@ -1,15 +1,14 @@
 # Login/Register pages and contact list
 
-This app uses mocking date from [randomuser.me](https://randomuser.me/)
+This app uses mocking data from [randomuser.me](https://randomuser.me/)
 
 ## How to run the app
 
-1. `npm start` localy or just open it on [GitHub Pages](https://svinohryak.github.io/login-page-contact-list)
+1. `npm start` locally or just open it on [GitHub Pages](https://svinohryak.github.io/login-page-contact-list)
 
-2. Register ( You do NOT have to confirm email, just put something valid )
-   or just Login with **user@mail.com** and password **qwer1234**
+2. Register (you do NOT have to confirm the email, just put something valid) or simply log in with `user@mail.com` and password `qwer1234`
 
-## Used technologies
+## Technologies used
 
 - TypeScript
 - React

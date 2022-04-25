@@ -33,8 +33,10 @@ const useHomePage = () => {
   const filterUserContacts = useMemo(() => {
     return userContacts?.filter(
       (user) =>
-        user.name.first.toLowerCase().includes(filterString) ||
-        user.name.last.toLowerCase().includes(filterString)
+        user.name.first
+          .toLowerCase()
+          .includes(filterString.toLocaleLowerCase()) ||
+        user.name.last.toLowerCase().includes(filterString.toLocaleLowerCase())
     );
   }, [userContacts, filterString]);
 

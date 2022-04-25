@@ -26,7 +26,7 @@ export function passwordStrengthChecker(
       2: "ok",
       3: "good",
       4: "strong",
-    }[strengthIndex] || "too short";
+    }[strengthIndex] || "";
 
   return {
     status: hasRequiredLength,
