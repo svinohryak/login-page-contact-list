@@ -1,6 +1,9 @@
 import { FC } from "react";
 import { IUserContact } from "../../types/types";
 import Spiner from "../Spiner/Spiner";
+import * as Styled from "./styles";
+import * as CommonStyled from "../../common styles/styles";
+
 interface IListProps {
   userContacts: IUserContact[];
   onRemove: (contact: string) => void;
@@ -21,25 +24,39 @@ const List: FC<IListProps> = ({
   }
 
   if (error) {
-    return <h2>{error}</h2>;
+    return <CommonStyled.ErrorMessageBox>{error}</CommonStyled.ErrorMessageBox>;
   }
 
   return (
-    <div>
+    <>
       {userContacts?.map((contact) => (
-        <div key={contact.login.uuid}>
-          <div>
-            <img src={contact.picture.thumbnail} alt="" />
+        <Styled.ContactCart key={contact.login.uuid}>
+          <div className="image-box">
+            <img src={contact.picture.thumbnail} alt="contact thumbnail" />
           </div>{" "}
-          <div style={{ textAlign: "left" }}>
-            {contact.name.first} {contact.name.last} <br /> {contact.email}{" "}
-            <br />
-            <button onClick={() => onRemove(contact.login.uuid)}>Delete</button>
-            <button onClick={() => onSelectUserContact(contact)}>Change</button>
+          <div>
+            <div className="contact-name">
+              <strong>
+                {" "}
+                {contact.name.first} {contact.name.last}
+              </strong>
+            </div>
+            <div className="contact-email">{contact.email}</div>
+            <CommonStyled.CloseButton
+              onClick={() => onRemove(contact.login.uuid)}
+            >
+              ✖
+            </CommonStyled.CloseButton>
+            <CommonStyled.FromButton
+              isContactListButton={true}
+              onClick={() => onSelectUserContact(contact)}
+            >
+              Change
+            </CommonStyled.FromButton>
           </div>
-        </div>
+        </Styled.ContactCart>
       ))}
-    </div>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ import { FC, useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { IName } from "../../types/types";
 import * as Styled from "./styles";
+import * as CommonStyled from "../../common styles/styles";
 
 const modalElement = document.getElementById("modal") as Element;
 
@@ -35,13 +36,15 @@ const Modal: FC<IModalProps> = ({
   return modalElement
     ? ReactDom.createPortal(
         <Styled.ModalLayout ref={modalRef} onClick={outsideClose}>
-          <Styled.ModalBox>
-            <h3>Change name</h3>
-            <Styled.CloseButton onClick={onClose}>❌</Styled.CloseButton>
+          <CommonStyled.Form isModal={true}>
+            <h1>Change name</h1>
+            <CommonStyled.CloseButton onClick={onClose}>
+              ✖
+            </CommonStyled.CloseButton>
             <form>
               <div>
                 <label>First name</label>
-                <input
+                <CommonStyled.Input
                   type="text"
                   value={firstName}
                   onChange={(event) => onChangeInput(event, setFirstName)}
@@ -49,17 +52,19 @@ const Modal: FC<IModalProps> = ({
               </div>
               <div>
                 <label>Last name</label>
-                <input
+                <CommonStyled.Input
                   type="text"
                   value={lastName}
                   onChange={(event) => onChangeInput(event, setLastName)}
                 />
               </div>
-              <button onClick={() => onSubmit([firstName, lastName])}>
+              <CommonStyled.FromButton
+                onClick={() => onSubmit([firstName, lastName])}
+              >
                 Submit
-              </button>
+              </CommonStyled.FromButton>
             </form>
-          </Styled.ModalBox>
+          </CommonStyled.Form>
         </Styled.ModalLayout>,
         modalElement
       )

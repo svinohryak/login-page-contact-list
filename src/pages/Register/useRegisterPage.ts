@@ -17,7 +17,7 @@ const useRegisterPage = () => {
   });
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordMessage, setPasswordMassege] = useState("too short");
+  const [passwordMessage, setPasswordMassege] = useState("");
   const [passwordStatus, setPasswordStatus] = useState(false);
   const [error, setError] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);

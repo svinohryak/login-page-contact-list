@@ -23,27 +23,29 @@ const RegisterPage: FC = () => {
   return (
     <CommonStyled.Form>
       <h1>Register</h1>
-      <div>{error}</div>
+      {error && (
+        <CommonStyled.ErrorMessageBox>{error}</CommonStyled.ErrorMessageBox>
+      )}
       <form onSubmit={register} name="registration_form">
         <label htmlFor="email">Email address</label>
-        <input
+        <CommonStyled.Input
           id="email"
           type="email"
           value={email}
-          placeholder="Enter your email"
           autoComplete="nope"
           required
           onChange={(e) => validateEmail(e)}
         />
-        <div>{emailStatus.message}</div>
+        <CommonStyled.StrengthLevelBox>
+          <div className="strength-title">{emailStatus.message}</div>
+        </CommonStyled.StrengthLevelBox>
 
         <label htmlFor="password">Password</label>
-        <input
+        <CommonStyled.Input
           id="password"
           type="password"
           value={password}
           required
-          placeholder="Enter your password"
           onChange={(e) => validatePassword(e)}
         />
 
@@ -51,20 +53,18 @@ const RegisterPage: FC = () => {
           strengthLevel={passwordMessage}
           passwordStatus={passwordStatus}
         />
-        <div> {passwordMessage}</div>
         <label htmlFor="confirm password">Confirm password</label>
-        <input
+        <CommonStyled.Input
           id="confirm password"
           type="password"
           value={confirmPassword}
           required
-          placeholder="Confirm password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
-        <button type="submit" disabled={isButtonDisabled}>
+        <CommonStyled.FromButton type="submit" disabled={isButtonDisabled}>
           Register
-        </button>
+        </CommonStyled.FromButton>
       </form>
 
       <p>

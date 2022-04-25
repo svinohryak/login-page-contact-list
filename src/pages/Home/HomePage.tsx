@@ -4,6 +4,8 @@ import useHomePage from "./useHomePage";
 import List from "../../components/List/List";
 import Filter from "../../components/Filter/Filter";
 import Modal from "../../components/Modal/Modal";
+import * as Styled from "./styles";
+import * as CommonStyled from "../../common styles/styles";
 
 const HomePage: FC = () => {
   const {
@@ -25,11 +27,18 @@ const HomePage: FC = () => {
   } = useHomePage();
 
   return isSignIn ? (
-    <>
-      <p>
-        <strong>{userEmail}</strong> contacts
-      </p>
-      <button onClick={handleSignOut}>Log out</button>
+    <Styled.Wrapper>
+      <Styled.HomePageHeader>
+        <p>
+          <strong>{userEmail}</strong> contacts
+        </p>
+        <CommonStyled.FromButton
+          isContactListButton={true}
+          onClick={handleSignOut}
+        >
+          Log out
+        </CommonStyled.FromButton>
+      </Styled.HomePageHeader>
       <Filter value={filterString} onChange={handleFilterChange} />
       <List
         userContacts={filterUserContacts}
@@ -46,7 +55,7 @@ const HomePage: FC = () => {
           onChangeInput={handleChangeTemplate}
         />
       )}
-    </>
+    </Styled.Wrapper>
   ) : (
     <Navigate to="/login-page-contact-list/login" />
   );

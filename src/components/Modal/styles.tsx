@@ -1,7 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const showup = keyframes`
+from {
+  opacity:0
+}
+to {
+  opacity: 1;
+}
+`;
 
 export const ModalLayout = styled.div`
-  background-color: #edeef090;
+  background-color: #edeef06f;
   position: fixed;
   top: 0;
   right: 0;
@@ -10,15 +19,9 @@ export const ModalLayout = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: ${showup} 250ms ease-out;
 `;
 
-export const ModalBox = styled.div`
-  background-color: #fff;
-  box-shadow: 0 0 3px lightgray;
-  border-radius: 5px;
-  padding: 20px;
-  position: relative;
-`;
 export const CloseButton = styled.button`
   border: none;
   outline: none;

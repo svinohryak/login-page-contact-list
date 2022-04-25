@@ -10,18 +10,21 @@ const LoginPage: FC = () => {
   return (
     <CommonStyled.Form>
       <h1>Please Login</h1>
-      {error && <div>{error}</div>}
+      {error && (
+        <CommonStyled.ErrorMessageBox>{error}</CommonStyled.ErrorMessageBox>
+      )}
       <form onSubmit={signIn} name="login_form">
         <label htmlFor="email">Email address</label>
-        <input
+        <CommonStyled.Input
           id="email"
           type="email"
           value={email}
           required
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <label htmlFor="password">Password</label>
-        <input
+        <CommonStyled.Input
           id="password"
           type="password"
           value={password}
@@ -29,7 +32,7 @@ const LoginPage: FC = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit">Login</button>
+        <CommonStyled.FromButton type="submit">Login</CommonStyled.FromButton>
       </form>
 
       <p>

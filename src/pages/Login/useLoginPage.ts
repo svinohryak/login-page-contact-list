@@ -20,12 +20,11 @@ const useLoginPage = () => {
     setError("");
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // const user = userCredential.user;
         dispatch(signInUser());
         history("/login-page-contact-list/");
       })
       .catch((error) => {
-        setError("invalid password or email");
+        setError("Incorrect username or password.");
       });
   };
 

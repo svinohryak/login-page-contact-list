@@ -1,4 +1,6 @@
 import React from "react";
+import * as CommonStyled from "../../common styles/styles";
+import * as Styled from "./styles";
 
 const Filter = ({
   value,
@@ -8,14 +10,15 @@ const Filter = ({
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
-    <div>
-      <input
+    <Styled.FilterBox>
+      <CommonStyled.Input
+        id="search"
         type="text"
-        placeholder="Search contact"
         value={value}
         onChange={onChange}
       />
-    </div>
+      <label htmlFor="search">Search contact</label>
+    </Styled.FilterBox>
   );
 };
 export default Filter;
