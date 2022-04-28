@@ -2,10 +2,12 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import useRegisterPage from "./useRegisterPage";
 import PasswordStrenghBar from "../../components/PasswordStrenghBar/PasswordStrenghBar";
+import Spiner from "../../components/Spiner/Spiner";
 import * as CommonStyled from "../../common styles/styles";
 
 const RegisterPage: FC = () => {
   const {
+    isLoading,
     error,
     email,
     password,
@@ -14,11 +16,18 @@ const RegisterPage: FC = () => {
     passwordMessage,
     passwordStatus,
     isButtonDisabled,
+    inputRef,
     register,
     validatePassword,
     setConfirmPassword,
     validateEmail,
   } = useRegisterPage();
+
+  if (isLoading) {
+    console.log("loading");
+
+    return <Spiner />;
+  }
 
   return (
     <CommonStyled.Form>
@@ -29,6 +38,7 @@ const RegisterPage: FC = () => {
       <form onSubmit={register} name="registration_form">
         <label htmlFor="email">Email address</label>
         <CommonStyled.Input
+          ref={inputRef}
           id="email"
           type="email"
           value={email}

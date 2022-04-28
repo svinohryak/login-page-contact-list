@@ -22,3 +22,4 @@ This app uses mocking data from [randomuser.me](https://randomuser.me/)
 - Custom password strength checker
 - Registration and authorization with Firebase
 - Modal is built with React Portals
+- Auto Focus custom hook

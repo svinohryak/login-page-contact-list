@@ -27,8 +27,14 @@ const useHomePage = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchUserContacts());
+    if (isSignIn) {
+      dispatch(fetchUserContacts());
+    }
   }, []);
+
+  // useEffect(() => {
+  //   console.log("userrr", userContacts, userEmail);
+  // }, [userEmail]);
 
   const filterUserContacts = useMemo(() => {
     return userContacts?.filter(

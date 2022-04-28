@@ -4,8 +4,15 @@ import useLoginPage from "./useLoginPage";
 import * as CommonStyled from "../../common styles/styles";
 
 const LoginPage: FC = () => {
-  const { error, email, password, signIn, setEmail, setPassword } =
-    useLoginPage();
+  const {
+    error,
+    email,
+    password,
+    inputRef,
+    handleSignIn,
+    setEmail,
+    setPassword,
+  } = useLoginPage();
 
   return (
     <CommonStyled.Form>
@@ -13,9 +20,10 @@ const LoginPage: FC = () => {
       {error && (
         <CommonStyled.ErrorMessageBox>{error}</CommonStyled.ErrorMessageBox>
       )}
-      <form onSubmit={signIn} name="login_form">
+      <form onSubmit={handleSignIn} name="login_form">
         <label htmlFor="email">Email address</label>
         <CommonStyled.Input
+          ref={inputRef}
           id="email"
           type="email"
           value={email}

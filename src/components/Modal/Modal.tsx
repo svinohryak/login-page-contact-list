@@ -1,6 +1,7 @@
 import { FC, useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { IName } from "../../types/types";
+import useAutoFocus from "../../hooks/useAutoFocus";
 import * as Styled from "./styles";
 import * as CommonStyled from "../../common styles/styles";
 
@@ -26,6 +27,8 @@ const Modal: FC<IModalProps> = ({
   const [firstName, setFirstName] = useState(targetUserName.first);
   const [lastName, setLastName] = useState(targetUserName.last);
 
+  const inputRef = useAutoFocus();
+
   const outsideClose = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     if (modalRef.current === event.target) {
@@ -45,6 +48,7 @@ const Modal: FC<IModalProps> = ({
               <div>
                 <label>First name</label>
                 <CommonStyled.Input
+                  ref={inputRef}
                   type="text"
                   value={firstName}
                   onChange={(event) => onChangeInput(event, setFirstName)}

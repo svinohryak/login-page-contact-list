@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../hooks/redux";
 import { userSlice } from "../../store/reucers/userSlice";
 import { passwordStrengthChecker } from "../../helpers/password-strength-checker";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import useAutoFocus from "../../hooks/useAutoFocus";
 
 const useRegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -16,12 +17,16 @@ const useRegisterPage = () => {
     isValid: false,
   });
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMessage, setPasswordMassege] = useState("");
   const [passwordStatus, setPasswordStatus] = useState(false);
   const [error, setError] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
   const history = useNavigate();
+
+  const inputRef = useAutoFocus();
 
   useEffect(() => {
     setError("");
@@ -53,8 +58,16 @@ const useRegisterPage = () => {
   const validatePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     const passwordValue = event.target.value;
     setPassword(passwordValue);
-    const { status, strength } = passwordStrengthChecker(passwordValue);
-    status ? setPasswordMassege(strength) : setPasswordMassege("too short");
+    const { status, strength, hasRestrictedSymbol } =
+      passwordStrengthChecker(passwordValue);
+    status
+      ? setPasswordMassege(strength)
+      : setPasswordMassege("Must be at least 6 characters long");
+    if (hasRestrictedSymbol) {
+      setPasswordMassege(
+        "Only latin letters, numbers and special characters (#?!@$%^&*-=) are allowed"
+      );
+    }
     setPasswordStatus(status);
   };
 
@@ -72,10 +85,13 @@ const useRegisterPage = () => {
   const register = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
+    // setIsLoading(true);
     if (validateMatchingPassword()) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
           dispatch(signInUser());
+          setIsLoading(false);
+
           history("/login-page-contact-list");
         })
         .catch((error) => {
@@ -91,6 +107,7 @@ const useRegisterPage = () => {
   };
 
   return {
+    isLoading,
     error,
     email,
     password,
@@ -99,6 +116,7 @@ const useRegisterPage = () => {
     passwordMessage,
     passwordStatus,
     isButtonDisabled,
+    inputRef,
     register,
     validatePassword,
     setConfirmPassword,
