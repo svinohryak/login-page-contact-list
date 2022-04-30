@@ -31,6 +31,7 @@ const List: FC<IListProps> = ({
     <>
       {userContacts?.map((contact) => (
         <ContactCard
+          key={contact.login.uuid}
           contact={contact}
           onRemove={onRemove}
           onSelectUserContact={onSelectUserContact}

@@ -13,14 +13,3 @@ export const Wrapper = styled.div`
     box-shadow: 0 0 0.625rem #00000075;
   }
 `;
-
-export const HomePageHeader = styled.div`
-  display: grid;
-  grid-template-columns: 85% 15%;
-  align-items: center;
-  justify-items: center;
-  & > p {
-    font-size: 24px;
-    font-weight: 300;
-  }
-`;

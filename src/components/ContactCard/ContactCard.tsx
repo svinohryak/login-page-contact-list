@@ -15,7 +15,7 @@ const ContactCardInner: FC<IContactCard> = ({
   onSelectUserContact,
 }) => {
   return (
-    <Styled.ContactCard key={contact.login.uuid}>
+    <Styled.ContactCard>
       <div className="image-box">
         <img src={contact.picture.thumbnail} alt="contact thumbnail" />
       </div>{" "}

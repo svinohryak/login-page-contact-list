@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getAuth, onAuthStateChanged, signOut } from "@firebase/auth";
 import { userSlice } from "../../store/reucers/userSlice";
@@ -42,7 +42,7 @@ const useHomePage = () => {
     );
   }, [userContacts, filterString]);
 
-  const handleSignOut = () => {
+  const handleSignOut = useCallback(() => {
     signOut(auth)
       .then(() => {
         dispatch(signOutUser());
@@ -50,7 +50,7 @@ const useHomePage = () => {
       .catch((error) => {
         console.log(error);
       });
-  };
+  }, [auth, dispatch, signOutUser]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -65,9 +65,12 @@ const useHomePage = () => {
     dispatch(removeContact(contactId));
   };
 
-  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilterString(event.target.value);
-  };
+  const handleFilterChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFilterString(event.target.value);
+    },
+    [setFilterString]
+  );
 
   const handleClose = () => {
     setIsModalOpen(false);

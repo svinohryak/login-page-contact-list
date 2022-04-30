@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import useAutoFocus from "../../hooks/useAutoFocus";
 import * as CommonStyled from "../../common styles/styles";
 import * as Styled from "./styles";
 
-const Filter = ({
+const FilterInner = ({
   value,
   onChange,
 }: {
@@ -25,4 +25,4 @@ const Filter = ({
     </Styled.FilterBox>
   );
 };
-export default Filter;
+export const Filter = memo(FilterInner);

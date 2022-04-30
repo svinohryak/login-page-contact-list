@@ -2,10 +2,10 @@ import { FC } from "react";
 import { Navigate } from "react-router-dom";
 import useHomePage from "./useHomePage";
 import List from "../../components/List/List";
-import Filter from "../../components/Filter/Filter";
+import { Filter } from "../../components/Filter/Filter";
 import Modal from "../../components/Modal/Modal";
+import { Header } from "../../components/Header/Header";
 import * as Styled from "./styles";
-import * as CommonStyled from "../../common styles/styles";
 
 const HomePage: FC = () => {
   const {
@@ -28,17 +28,7 @@ const HomePage: FC = () => {
 
   return isSignIn ? (
     <Styled.Wrapper>
-      <Styled.HomePageHeader>
-        <p>
-          <strong>{userEmail}</strong> contacts
-        </p>
-        <CommonStyled.FromButton
-          isContactListButton={true}
-          onClick={handleSignOut}
-        >
-          Log out
-        </CommonStyled.FromButton>
-      </Styled.HomePageHeader>
+      <Header userEmail={userEmail} handleSignOut={handleSignOut} />
       <Filter value={filterString} onChange={handleFilterChange} />
       <List
         userContacts={filterUserContacts}
