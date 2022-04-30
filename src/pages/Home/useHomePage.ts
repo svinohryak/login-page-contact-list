@@ -61,9 +61,36 @@ const useHomePage = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleRemoveContact = (contactId: string) => {
-    dispatch(removeContact(contactId));
-  };
+  const handleRemoveContact = useCallback(
+    (contactId: string) => {
+      dispatch(removeContact(contactId));
+    },
+    [dispatch, removeContact]
+  );
+
+  const handleSelectUserContact = useCallback(
+    (contact: IUserContact) => {
+      setIsModalOpen(true);
+
+      const targetUserId = contact?.login?.uuid;
+      const targetUser = userContacts.find(
+        (contact) => contact?.login?.uuid === targetUserId
+      );
+
+      setTargetUserId(targetUserId);
+
+      if (targetUser) {
+        setTargetUserName((prev) => {
+          return {
+            ...prev,
+            first: targetUser?.name?.first,
+            last: targetUser?.name?.last,
+          };
+        });
+      }
+    },
+    [userContacts]
+  );
 
   const handleFilterChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,27 +101,6 @@ const useHomePage = () => {
 
   const handleClose = () => {
     setIsModalOpen(false);
-  };
-
-  const handleSelectUserContact = (contact: IUserContact) => {
-    setIsModalOpen(true);
-
-    const targetUserId = contact?.login?.uuid;
-    const targetUser = userContacts.find(
-      (contact) => contact?.login?.uuid === targetUserId
-    );
-
-    setTargetUserId(targetUserId);
-
-    if (targetUser) {
-      setTargetUserName((prev) => {
-        return {
-          ...prev,
-          first: targetUser?.name?.first,
-          last: targetUser?.name?.last,
-        };
-      });
-    }
   };
 
   const handleChangeTemplate = (
