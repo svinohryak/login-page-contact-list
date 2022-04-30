@@ -32,10 +32,6 @@ const useHomePage = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   console.log("userrr", userContacts, userEmail);
-  // }, [userEmail]);
-
   const filterUserContacts = useMemo(() => {
     return userContacts?.filter(
       (user) =>

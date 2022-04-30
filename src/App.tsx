@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/Home/HomePage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
+import NoMatchPage from "./pages/NoMatch/NoMatchPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         path="/login-page-contact-list/register"
         element={<RegisterPage />}
       />
+      <Route path="*" element={<NoMatchPage />} />
     </Routes>
   );
 }

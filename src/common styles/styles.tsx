@@ -15,6 +15,14 @@ to {
 }
 `;
 
+export const CenteredWraper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+`;
+
 export const Form = styled.div<IForm>`
   width: 19.25rem;
   margin: 15vh auto;
@@ -29,13 +37,6 @@ export const Form = styled.div<IForm>`
     isModal &&
     "transform: translateY(-30px); opacity: 0; animation: showModal 300ms 150ms forwards;"}
   animation: ${showModal} 300ms 150ms forwards;
-
-  & > h1 {
-    font-size: 24px;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 0.625rem;
-  }
 
   label {
     display: block;
@@ -53,6 +54,13 @@ export const Form = styled.div<IForm>`
   & > p {
     text-align: center;
   }
+`;
+
+export const TypographyHeader = styled.h1`
+  font-size: 24px;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 0.625rem;
 `;
 
 export const Input = styled.input`

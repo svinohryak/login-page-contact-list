@@ -16,7 +16,9 @@ const LoginPage: FC = () => {
 
   return (
     <CommonStyled.Form>
-      <h1>Please Login</h1>
+      <CommonStyled.TypographyHeader>
+        Please Login
+      </CommonStyled.TypographyHeader>
       {error && (
         <CommonStyled.ErrorMessageBox>{error}</CommonStyled.ErrorMessageBox>
       )}

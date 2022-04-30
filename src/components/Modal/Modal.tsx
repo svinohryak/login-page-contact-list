@@ -40,7 +40,9 @@ const Modal: FC<IModalProps> = ({
     ? ReactDom.createPortal(
         <Styled.ModalLayout ref={modalRef} onClick={outsideClose}>
           <CommonStyled.Form isModal={true}>
-            <h1>Change name</h1>
+            <CommonStyled.TypographyHeader>
+              Change name
+            </CommonStyled.TypographyHeader>
             <CommonStyled.CloseButton onClick={onClose}>
               ✖
             </CommonStyled.CloseButton>

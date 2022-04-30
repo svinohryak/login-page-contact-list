@@ -31,7 +31,7 @@ const RegisterPage: FC = () => {
 
   return (
     <CommonStyled.Form>
-      <h1>Register</h1>
+      <CommonStyled.TypographyHeader>Register</CommonStyled.TypographyHeader>
       {error && (
         <CommonStyled.ErrorMessageBox>{error}</CommonStyled.ErrorMessageBox>
       )}
