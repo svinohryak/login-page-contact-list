@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   box-shadow: 0 0 0.625rem #00000075;
 `;
 
-export const ContactCart = styled.div`
+export const ContactCard = styled.div`
   position: relative;
   width: 100%;
   margin: 1rem 0;
